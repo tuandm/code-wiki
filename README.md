@@ -1,3 +1,5 @@
+![code-wiki](https://github.com/user-attachments/assets/15ea0805-4091-4d9d-8f92-646e18a55556)
+
 # code-wiki
 
 **Your codebase knows *what*. This wiki captures *why*.**
