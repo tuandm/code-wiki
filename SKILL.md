@@ -8,7 +8,7 @@ description: |
 
 A wiki system for codebases where:
 - **Code is the source of truth.** The wiki captures what code can't express — decisions, rationale, gotchas.
-- **Agents maintain it.** Writing happens as a workflow step, not a separate ceremony.
+- **Agents draft it, humans audit.** The agent hypothesizes decisions and gotchas from code patterns. You confirm or correct — never write from scratch.
 - **Zero infrastructure.** Flat markdown files. No vector DB, no indexing pipeline, no separate server.
 - **Trigger-based freshness.** Topics re-verified only when relevant code changes (migrations, API routes, refactors), not on every commit.
 
@@ -40,7 +40,7 @@ EOF
 # .claude/commands/wiki-bootstrap.md
 cat > .claude/commands/wiki-bootstrap.md << 'EOF'
 ---
-description: Bootstrap wiki by reading code and interviewing you
+description: Bootstrap wiki — agent drafts topics from code, you audit
 ---
 Read the skill file at .claude/skills/code-wiki/wiki-bootstrap.md and execute its process steps.
 EOF
@@ -109,23 +109,23 @@ The skills are plain markdown instruction files. Any agent that can read files a
 | Command | What it does | Human effort |
 |---|---|---|
 | `/wiki-init` | Scaffold wiki/ in any project | ~2 min |
-| `/wiki-bootstrap` | Agent reads code, asks 5-15 questions, writes the initial wiki | 10-25 min |
+| `/wiki-bootstrap` | Agent scans code, drafts topics with hypothesized decisions, you audit | ~10 min |
 | `/wiki-lint [--fix]` | Health audit with severity tiers | review |
 
 ## getting started
 
 ```
 /wiki-init          # scaffold wiki/
-/wiki-bootstrap     # agent reads code, asks you 5-15 questions, writes topics
+/wiki-bootstrap     # agent scans code, drafts topics, you audit
 ```
 
-That's it. ~15-25 minutes from zero to a working wiki.
+That's it. ~15 minutes from zero to a working wiki.
 
 ## philosophy
 
 Most LLM wiki tools either synthesize external sources (Karpathy pattern) or auto-generate from code (DeepWiki, Google Code Wiki). Neither captures **why** — the decisions, trade-offs, and gotchas that only humans know.
 
-code-wiki fills the gap between what code shows and what engineers need to know. It doesn't duplicate what code already says (use your LSP and code graph tools for that). It stores the things that would otherwise live in someone's head and leave when they do.
+code-wiki fills the gap between what code shows and what engineers need to know. It uses a draft-first model: the agent scans your code, detects architectural shifts, complexity hotspots, and boundary layers, then hypothesizes decisions and gotchas with confidence scores. You audit the drafts — confirming, correcting, or skipping — instead of writing from scratch.
 
 ## keeping it fresh
 

@@ -10,7 +10,9 @@ last-updated: {today}
 Every topic file starts with YAML frontmatter:
 
 - `topic` — kebab-case name, matches filename without extension
+- `status` — `draft` (agent-generated, not yet audited) or `verified` (human-audited). Topics created by `/wiki-bootstrap` start as `draft` and move to `verified` after audit. `/wiki-lint` flags draft topics as warnings.
 - `last-verified` — date (yyyy-mm-dd) when last checked against code
+- `confidence_score` — float 0.0-1.0 indicating confidence in the topic's accuracy. `0.8-1.0` = strong code evidence or human-verified. `0.5-0.7` = moderate evidence from naming/structure. `0.3-0.4` = agent best guess. Verified topics should be 0.8+. Used by agents to decide whether to trust a topic without re-reading code.
 - `priority` — `core` (loaded by default) or `extended` (on demand)
 - `rank` — integer 1-10 within the priority tier. 1 = most important. Agents under token pressure load top-N by rank instead of all-core. Optional; unranked topics sort after ranked ones.
 - `tokens` — approximate token count of file body

@@ -1,6 +1,8 @@
 ---
 topic: {kebab-case-name}
+status: verified
 last-verified: {yyyy-mm-dd}
+confidence_score: 1.0
 priority: core
 rank: 5
 tokens: 0
